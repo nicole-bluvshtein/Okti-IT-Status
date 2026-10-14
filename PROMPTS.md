@@ -277,3 +277,7 @@
 **20:27 · claude**
 
 > we can remove the number of users per company, the rest i approve
+
+**20:34 · claude**
+
+> i approve
