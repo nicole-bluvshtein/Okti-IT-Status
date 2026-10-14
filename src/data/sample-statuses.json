@@ -1,0 +1,10 @@
+[
+  { "id": "salesforce", "status": "operational" },
+  { "id": "github", "status": "operational" },
+  { "id": "atlassian", "status": "degraded" },
+  { "id": "cloudflare", "status": "operational" },
+  { "id": "twilio", "status": "operational" },
+  { "id": "openai", "status": "down" },
+  { "id": "claude", "status": "operational" },
+  { "id": "clari", "status": "operational" }
+]
