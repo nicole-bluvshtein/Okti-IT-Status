@@ -1,24 +1,26 @@
-import ServiceList from './components/ServiceList'
-import { services } from './data/services'
-import sampleStatuses from './data/sample-statuses.json'
-import type { ServiceStatus, ServiceWithStatus } from './types'
+import { Route, Routes } from 'react-router'
+import Layout from './components/Layout'
+import DashboardPage from './pages/DashboardPage'
+import ServicesPage from './pages/ServicesPage'
+import ServiceDetailsPage from './pages/ServiceDetailsPage'
+import StatsPage from './pages/StatsPage'
+import ReportPage from './pages/ReportPage'
+import NotFoundPage from './pages/NotFoundPage'
 import './App.css'
 
-// Temporary: until Task 3, statuses come from a local sample file instead of the APIs.
-const statuses = sampleStatuses as { id: string; status: ServiceStatus }[]
-
-// Join each service from the config with its status.
-const servicesWithStatus: ServiceWithStatus[] = services.map((service) => {
-  const found = statuses.find((item) => item.id === service.id)
-  return { ...service, status: found ? found.status : 'down' }
-})
-
+// The map of the app: which page shows at which address.
 function App() {
   return (
-    <main className="app">
-      <h1>Oktopost IT Status</h1>
-      <ServiceList services={servicesWithStatus} />
-    </main>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route path="/" element={<DashboardPage />} />
+        <Route path="/services" element={<ServicesPage />} />
+        <Route path="/services/:id" element={<ServiceDetailsPage />} />
+        <Route path="/stats" element={<StatsPage />} />
+        <Route path="/report" element={<ReportPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
+    </Routes>
   )
 }
 
