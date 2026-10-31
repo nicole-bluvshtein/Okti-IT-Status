@@ -27,15 +27,13 @@ function ServiceDetailsPage() {
     // If the page closes before an answer arrives, we ignore that answer.
     let ignore = false
 
-    if (service.apiType === 'statuspage') {
-      fetchSummary(service)
-        .then((data) => { if (!ignore) setSummary({ state: 'success', data }) })
-        .catch(() => { if (!ignore) setSummary({ state: 'error' }) })
+    fetchSummary(service)
+      .then((data) => { if (!ignore) setSummary({ state: 'success', data }) })
+      .catch(() => { if (!ignore) setSummary({ state: 'error' }) })
 
-      fetchIncidents(service)
-        .then((data) => { if (!ignore) setIncidents({ state: 'success', data }) })
-        .catch(() => { if (!ignore) setIncidents({ state: 'error' }) })
-    }
+    fetchIncidents(service)
+      .then((data) => { if (!ignore) setIncidents({ state: 'success', data }) })
+      .catch(() => { if (!ignore) setIncidents({ state: 'error' }) })
 
     fetchWikipediaSummary(service.wikipediaTitle)
       .then((data) => { if (!ignore) setWiki({ state: 'success', data }) })
@@ -56,13 +54,9 @@ function ServiceDetailsPage() {
     )
   }
 
-  const isConnected = service.apiType === 'statuspage'
-
   // The status shown at the top, next to the name.
-  let overallStatus: StatusResult = 'not-connected'
-  if (isConnected) {
-    overallStatus = summary.state === 'success' ? toServiceStatus(summary.data.status.indicator) : summary.state
-  }
+  const overallStatus: StatusResult =
+    summary.state === 'success' ? toServiceStatus(summary.data.status.indicator) : summary.state
 
   return (
     <>
@@ -89,38 +83,32 @@ function ServiceDetailsPage() {
         )}
       </section>
 
-      {isConnected ? (
-        <>
-          <section className="details-section">
-            <h2>Components</h2>
-            {summary.state === 'loading' && <p className="muted">Loading components…</p>}
-            {summary.state === 'error' && <p className="error-text">Couldn't load components.</p>}
-            {summary.state === 'success' && (
-              <ComponentList components={getTopLevelComponents(summary.data.components)} />
-            )}
-          </section>
+      <section className="details-section">
+        <h2>Components</h2>
+        {summary.state === 'loading' && <p className="muted">Loading components…</p>}
+        {summary.state === 'error' && <p className="error-text">Couldn't load components.</p>}
+        {summary.state === 'success' && (
+          <ComponentList components={getTopLevelComponents(summary.data.components)} />
+        )}
+      </section>
 
-          <section className="details-section">
-            <h2>Open incidents</h2>
-            {incidents.state === 'loading' && <p className="muted">Loading incidents…</p>}
-            {incidents.state === 'error' && <p className="error-text">Couldn't load incidents.</p>}
-            {incidents.state === 'success' && (
-              <IncidentList incidents={getOpenIncidents(incidents.data)} emptyMessage="No open incidents right now 🎉" />
-            )}
-          </section>
+      <section className="details-section">
+        <h2>Open incidents</h2>
+        {incidents.state === 'loading' && <p className="muted">Loading incidents…</p>}
+        {incidents.state === 'error' && <p className="error-text">Couldn't load incidents.</p>}
+        {incidents.state === 'success' && (
+          <IncidentList incidents={getOpenIncidents(incidents.data)} emptyMessage="No open incidents right now 🎉" />
+        )}
+      </section>
 
-          <section className="details-section">
-            <h2>Recent incidents</h2>
-            {incidents.state === 'loading' && <p className="muted">Loading incidents…</p>}
-            {incidents.state === 'error' && <p className="error-text">Couldn't load incidents.</p>}
-            {incidents.state === 'success' && (
-              <IncidentList incidents={getRecentHistory(incidents.data)} emptyMessage="No past incidents." />
-            )}
-          </section>
-        </>
-      ) : (
-        <p className="muted">Live status for {service.name} is not connected yet.</p>
-      )}
+      <section className="details-section">
+        <h2>Recent incidents</h2>
+        {incidents.state === 'loading' && <p className="muted">Loading incidents…</p>}
+        {incidents.state === 'error' && <p className="error-text">Couldn't load incidents.</p>}
+        {incidents.state === 'success' && (
+          <IncidentList incidents={getRecentHistory(incidents.data)} emptyMessage="No past incidents." />
+        )}
+      </section>
 
       <a href={service.statusPageUrl} target="_blank" rel="noreferrer">
         Official status page ↗

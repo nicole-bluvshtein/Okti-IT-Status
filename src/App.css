@@ -55,8 +55,7 @@
   background: var(--red);
 }
 
-.status-loading,
-.status-not-connected {
+.status-loading {
   background: var(--border);
 }
 

@@ -11,11 +11,10 @@ export type StatusCounts = {
 // What the banner shows: a real status, still checking, or couldn't check.
 export type OverallStatus = ServiceStatus | 'loading' | 'error'
 
-// Counts how many services are in each state. Services that aren't connected yet are skipped.
+// Counts how many services are in each state.
 export function countStatuses(services: ServiceWithStatus[]): StatusCounts {
   const counts: StatusCounts = { operational: 0, degraded: 0, down: 0, error: 0, loading: 0 }
   for (const service of services) {
-    if (service.status === 'not-connected') continue
     counts[service.status] += 1
   }
   return counts

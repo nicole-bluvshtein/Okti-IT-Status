@@ -3,11 +3,11 @@ import { services } from '../data/services'
 import { fetchServiceStatus } from '../api/statuspage'
 import type { ServiceWithStatus, StatusResult } from '../types'
 
-// Before any response arrives: every service is loading, except the ones we can't fetch yet.
+// Before any response arrives, every service is loading.
 function initialStatuses(): Record<string, StatusResult> {
   const result: Record<string, StatusResult> = {}
   for (const service of services) {
-    result[service.id] = service.apiType === 'statuspage' ? 'loading' : 'not-connected'
+    result[service.id] = 'loading'
   }
   return result
 }
@@ -23,8 +23,6 @@ export function useServiceStatuses(): ServiceWithStatus[] {
     let ignore = false
 
     for (const service of services) {
-      if (service.apiType !== 'statuspage') continue
-
       fetchServiceStatus(service)
         .then((status) => {
           // Update only this service. "prev" is the latest state, so answers don't overwrite each other.

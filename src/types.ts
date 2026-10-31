@@ -19,7 +19,7 @@ export type Service = {
 }
 
 // What a card shows: a real status, or one of the states before we have one.
-export type StatusResult = ServiceStatus | 'loading' | 'error' | 'not-connected'
+export type StatusResult = ServiceStatus | 'loading' | 'error'
 
 // A service together with its current status, ready to show on screen.
 export type ServiceWithStatus = Service & {

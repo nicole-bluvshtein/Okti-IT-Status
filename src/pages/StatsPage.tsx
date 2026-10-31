@@ -8,12 +8,9 @@ import type { RequestState } from '../types'
 // How many days back the statistics look.
 const DAYS = 30
 
-// Salesforce isn't connected yet, so only Statuspage services have statistics.
-const statuspageServices = services.filter((service) => service.apiType === 'statuspage')
-
 function initialResults(): Record<string, RequestState<CompanyStats>> {
   const result: Record<string, RequestState<CompanyStats>> = {}
-  for (const service of statuspageServices) {
+  for (const service of services) {
     result[service.id] = { state: 'loading' }
   }
   return result
@@ -26,7 +23,7 @@ function StatsPage() {
     let ignore = false
     const now = new Date()
 
-    for (const service of statuspageServices) {
+    for (const service of services) {
       // Both requests for one company run together, and we continue when both have arrived.
       Promise.all([fetchSummary(service), fetchIncidents(service)])
         .then(([summary, incidents]) => {
@@ -46,12 +43,12 @@ function StatsPage() {
   // Split the results into the three states.
   const loaded: CompanyStats[] = []
   const failed: string[] = []
-  for (const service of statuspageServices) {
+  for (const service of services) {
     const result = results[service.id]
     if (result.state === 'success') loaded.push(result.data)
     if (result.state === 'error') failed.push(service.name)
   }
-  const isLoading = loaded.length + failed.length < statuspageServices.length
+  const isLoading = loaded.length + failed.length < services.length
 
   const sorted = sortByIncidents(loaded)
   const top = getMostIncidents(loaded)
@@ -63,7 +60,7 @@ function StatsPage() {
 
       {isLoading && (
         <p className="muted">
-          Loading statistics… ({loaded.length + failed.length} of {statuspageServices.length})
+          Loading statistics… ({loaded.length + failed.length} of {services.length})
         </p>
       )}
 

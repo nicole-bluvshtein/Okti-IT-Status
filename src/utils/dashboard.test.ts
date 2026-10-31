@@ -10,9 +10,9 @@ function service(status: StatusResult): ServiceWithStatus {
 const zero: StatusCounts = { operational: 0, degraded: 0, down: 0, error: 0, loading: 0 }
 
 describe('countStatuses', () => {
-  it('counts each status and skips services that are not connected', () => {
-    const list = [service('operational'), service('operational'), service('down'), service('not-connected')]
-    expect(countStatuses(list)).toEqual({ ...zero, operational: 2, down: 1 })
+  it('counts how many services are in each state', () => {
+    const list = [service('operational'), service('operational'), service('down'), service('error')]
+    expect(countStatuses(list)).toEqual({ ...zero, operational: 2, down: 1, error: 1 })
   })
 })
 

@@ -7,7 +7,6 @@ const statusLabels: Record<StatusResult, string> = {
   down: 'Down',
   loading: 'Loading…',
   error: "Couldn't load status",
-  'not-connected': 'Not connected yet',
 }
 
 type StatusBadgeProps = {
