@@ -36,11 +36,6 @@
   font-size: 0.9rem;
 }
 
-.service-status {
-  margin: 0 0 0 auto;
-  font-size: 0.9rem;
-}
-
 .status-dot {
   width: 14px;
   height: 14px;
@@ -131,4 +126,51 @@
 .search-bar {
   flex: 1;
   min-width: 200px;
+}
+
+.service-logo {
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.service-card .status-badge {
+  margin-left: auto;
+}
+
+.component-list,
+.incident-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.component-row,
+.incident-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 12px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.component-row:last-child,
+.incident-row:last-child {
+  border-bottom: none;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 0.9rem;
 }
