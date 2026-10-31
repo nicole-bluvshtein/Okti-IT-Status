@@ -78,3 +78,20 @@ export type ProblemReport = {
   description: string
   createdAt: string // a date like "2026-10-31T09:15:00.000Z"
 }
+
+// The parts of the Salesforce status API we use. Example: https://api.status.salesforce.com/v1/products
+export type SalesforceProduct = {
+  key: string // for example "Marketing_Cloud"
+  name: string
+  isActive: boolean
+  incidentCount: number // incidents happening right now
+}
+
+export type SalesforceIncident = {
+  id: number
+  status: string // "Resolved" when it's over. Anything else means it's still open.
+  type: string // for example "Degradation" or "Disruption"
+  createdAt: string
+  instanceKeys: string[] // the Salesforce servers affected, for example ["NA123"]
+  IncidentImpacts: { severity: string }[] // "minor" or "major"
+}

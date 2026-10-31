@@ -1,5 +1,5 @@
 import type { Category, ServiceStatus } from '../types'
-import { categoryOptions } from '../utils/filter'
+import { categoryOptions, statusOptions } from '../utils/filter'
 
 type FilterBarProps = {
   category: Category | 'all'
@@ -13,7 +13,9 @@ function FilterBar({ category, status, onCategoryChange, onStatusChange }: Filte
     <div className="filter-bar">
       <select
         value={category}
-        onChange={(event) => onCategoryChange(event.target.value as Category | 'all')}
+        onChange={(event) =>
+          onCategoryChange(categoryOptions.find((option) => option === event.target.value) ?? 'all')
+        }
       >
         <option value="all">All categories</option>
         {categoryOptions.map((item) => (
@@ -25,7 +27,9 @@ function FilterBar({ category, status, onCategoryChange, onStatusChange }: Filte
 
       <select
         value={status}
-        onChange={(event) => onStatusChange(event.target.value as ServiceStatus | 'all')}
+        onChange={(event) =>
+          onStatusChange(statusOptions.find((option) => option === event.target.value) ?? 'all')
+        }
       >
         <option value="all">All statuses</option>
         <option value="operational">Operational</option>
