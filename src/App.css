@@ -60,6 +60,16 @@
   background: var(--red);
 }
 
+.status-loading,
+.status-not-connected {
+  background: var(--border);
+}
+
+.status-error {
+  background: transparent;
+  border: 2px solid var(--red);
+}
+
 .service-card:hover {
   border-color: var(--muted);
 }

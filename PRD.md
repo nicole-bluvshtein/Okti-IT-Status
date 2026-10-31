@@ -1,7 +1,7 @@
 # PRD — Oktopost IT Status Board
 
 ## 1. Pitch
-Oktopost IT Status Board shows, in one place, whether the external services Oktopost depends on (GitHub, Atlassian, Cloudflare, OpenAI and more) are working right now. Employees can also report a problem.
+Oktopost IT Status Board shows, in one place, whether the external services Oktopost depends on (GitHub, Jira, Cloudflare, OpenAI and more) are working right now. Employees can also report a problem.
 
 ## 2. Who it's for
 - **The IT manager:** when an employee says "X isn't working", they can see at a glance whether the vendor has an outage or the problem is on our side.
@@ -49,7 +49,7 @@ A navigation menu at the top (`NavLink`) links to Dashboard, Services, Statistic
 - **Status pages (Statuspage format):** `https://<status-page>/api/v2/summary.json` for the overall status, components and open incidents, and `/api/v2/incidents.json` for incident history.
 - **Salesforce:** `https://api.status.salesforce.com/v1/…` uses a different format, so an adapter converts it into ours.
 - **Wikipedia:** `https://en.wikipedia.org/api/rest_v1/page/summary/<name>` for the description and logo.
-- **Status mapping:** `none` → 🟢 Operational · `minor` → 🟡 Degraded · `major` / `critical` → 🔴 Down.
+- **Status mapping:** `none` → 🟢 Operational · `minor` / `maintenance` → 🟡 Degraded · `major` / `critical` → 🔴 Down.
 - **Fields on the list:** name, category, status marker.
 - **Fields on the details page:** logo, description, components with their status, open incidents, incident history (title, impact, date), and a link to the official status page.
 

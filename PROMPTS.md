@@ -294,3 +294,13 @@
 **20:54 · claude**
 
 > we can continue
+
+**21:02 · claude**
+
+> pushed it all, checked the browser looks good and all works
+
+## 2026-10-31
+
+**12:48 · claude**
+
+> for salesforce we will do not connected yet, yes we will go with jira

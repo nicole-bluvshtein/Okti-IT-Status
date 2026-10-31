@@ -1,14 +1,17 @@
 import { Link } from 'react-router'
-import type { ServiceStatus, ServiceWithStatus } from '../types'
+import type { ServiceWithStatus, StatusResult } from '../types'
 
 type ServiceCardProps = {
   service: ServiceWithStatus
 }
 
-const statusLabels: Record<ServiceStatus, string> = {
+const statusLabels: Record<StatusResult, string> = {
   operational: 'Operational',
   degraded: 'Degraded',
   down: 'Down',
+  loading: 'Loading…',
+  error: "Couldn't load status",
+  'not-connected': 'Not connected yet',
 }
 
 function ServiceCard({ service }: ServiceCardProps) {

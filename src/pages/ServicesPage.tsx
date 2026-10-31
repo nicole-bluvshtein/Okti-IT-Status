@@ -1,18 +1,43 @@
+import { useEffect, useState } from 'react'
 import ServiceList from '../components/ServiceList'
 import { services } from '../data/services'
-import sampleStatuses from '../data/sample-statuses.json'
-import type { ServiceStatus, ServiceWithStatus } from '../types'
+import { fetchServiceStatus } from '../api/statuspage'
+import type { ServiceWithStatus, StatusResult } from '../types'
 
-// Temporary: until Task 3, statuses come from a local sample file instead of the APIs.
-const statuses = sampleStatuses as { id: string; status: ServiceStatus }[]
-
-// Join each service from the config with its status.
-const servicesWithStatus: ServiceWithStatus[] = services.map((service) => {
-  const found = statuses.find((item) => item.id === service.id)
-  return { ...service, status: found ? found.status : 'down' }
-})
+// Before any response arrives: every service is loading, except the ones we can't fetch yet.
+function initialStatuses(): Record<string, StatusResult> {
+  const result: Record<string, StatusResult> = {}
+  for (const service of services) {
+    result[service.id] = service.apiType === 'statuspage' ? 'loading' : 'not-connected'
+  }
+  return result
+}
 
 function ServicesPage() {
+  // One status per service id, for example { github: 'operational', jira: 'loading' }
+  const [statuses, setStatuses] = useState<Record<string, StatusResult>>(initialStatuses)
+
+  // Runs once, when the page opens: start one fetch for each service.
+  useEffect(() => {
+    for (const service of services) {
+      if (service.apiType !== 'statuspage') continue
+
+      fetchServiceStatus(service)
+        .then((status) => {
+          // Update only this service. "prev" is the latest state, so answers don't overwrite each other.
+          setStatuses((prev) => ({ ...prev, [service.id]: status }))
+        })
+        .catch(() => {
+          setStatuses((prev) => ({ ...prev, [service.id]: 'error' }))
+        })
+    }
+  }, [])
+
+  const servicesWithStatus: ServiceWithStatus[] = services.map((service) => ({
+    ...service,
+    status: statuses[service.id],
+  }))
+
   return (
     <>
       <h1>Services</h1>
