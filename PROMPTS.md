@@ -304,3 +304,11 @@
 **12:48 · claude**
 
 > for salesforce we will do not connected yet, yes we will go with jira
+
+**12:52 · claude**
+
+> ok so no more writing the code without showing it to me first and only after my approval and aftr I have seen the code then we write. I am an active part of this code buid and website so I need to see it all, I commit and push you can write the commands but I am the one working on it. and you will explain every single part of the code so I would understand in simple words what are we doing and why. everything works and I pushed we can continue
+
+**12:57 · claude**
+
+> I approve and I installed
