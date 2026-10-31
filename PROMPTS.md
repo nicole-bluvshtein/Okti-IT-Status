@@ -352,3 +352,15 @@
 **13:53 · claude**
 
 > I approve
+
+**13:53 · claude**
+
+> done
+
+**13:58 · claude**
+
+> we will go with A, in services page we have another UI issue with the filters, the arrow is way too much on the left its almost leaving the box and it doesnt look it it isnt aligned. I approve the code
+
+**14:01 · claude**
+
+> I approve
