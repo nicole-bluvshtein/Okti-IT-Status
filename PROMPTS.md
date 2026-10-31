@@ -380,3 +380,11 @@
 **14:35 · claude**
 
 > I approve
+
+**14:44 · claude**
+
+> pished, also lets make the squers in the dashboard clickable, we should be able to click on reported problems and go to that page same for the working systems it should open the ystems page with the filtering of up.
+
+**14:50 · claude**
+
+> yes

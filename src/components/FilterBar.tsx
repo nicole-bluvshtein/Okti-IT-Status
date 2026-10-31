@@ -1,4 +1,5 @@
 import type { Category, ServiceStatus } from '../types'
+import { categoryOptions } from '../utils/filter'
 
 type FilterBarProps = {
   category: Category | 'all'
@@ -6,8 +7,6 @@ type FilterBarProps = {
   onCategoryChange: (category: Category | 'all') => void
   onStatusChange: (status: ServiceStatus | 'all') => void
 }
-
-const categories: Category[] = ['CRM', 'Dev Tools', 'Network', 'AI']
 
 function FilterBar({ category, status, onCategoryChange, onStatusChange }: FilterBarProps) {
   return (
@@ -17,7 +16,7 @@ function FilterBar({ category, status, onCategoryChange, onStatusChange }: Filte
         onChange={(event) => onCategoryChange(event.target.value as Category | 'all')}
       >
         <option value="all">All categories</option>
-        {categories.map((item) => (
+        {categoryOptions.map((item) => (
           <option key={item} value={item}>
             {item}
           </option>

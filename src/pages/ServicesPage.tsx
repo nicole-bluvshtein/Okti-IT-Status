@@ -1,13 +1,21 @@
-import { useState } from 'react'
+import { useSearchParams } from 'react-router'
 import ServiceList from '../components/ServiceList'
 import SearchBar from '../components/SearchBar'
 import FilterBar from '../components/FilterBar'
 import { useServiceStatuses } from '../hooks/useServiceStatuses'
-import { filterServices, type ServiceFilters } from '../utils/filter'
+import { filterServices, filtersFromParams, filtersToParams, type ServiceFilters } from '../utils/filter'
 
 function ServicesPage() {
   const servicesWithStatus = useServiceStatuses()
-  const [filters, setFilters] = useState<ServiceFilters>({ search: '', category: 'all', status: 'all' })
+
+  // The filters live in the address (for example ?status=operational), so links can open a filtered list.
+  const [searchParams, setSearchParams] = useSearchParams()
+  const filters = filtersFromParams(searchParams)
+
+  function updateFilters(next: ServiceFilters) {
+    // replace: true updates the address without adding a Back-button step for every letter typed.
+    setSearchParams(filtersToParams(next), { replace: true })
+  }
 
   const visibleServices = filterServices(servicesWithStatus, filters)
 
@@ -17,13 +25,13 @@ function ServicesPage() {
       <div className="filters">
         <SearchBar
           value={filters.search}
-          onChange={(search) => setFilters({ ...filters, search })}
+          onChange={(search) => updateFilters({ ...filters, search })}
         />
         <FilterBar
           category={filters.category}
           status={filters.status}
-          onCategoryChange={(category) => setFilters({ ...filters, category })}
-          onStatusChange={(status) => setFilters({ ...filters, status })}
+          onCategoryChange={(category) => updateFilters({ ...filters, category })}
+          onStatusChange={(status) => updateFilters({ ...filters, status })}
         />
       </div>
       {visibleServices.length > 0 ? (

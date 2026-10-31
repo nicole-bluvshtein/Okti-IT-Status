@@ -22,10 +22,10 @@ function DashboardPage() {
       <div className={`banner banner-${overall}`}>{getBannerMessage(counts)}</div>
 
       <div className="stat-grid">
-        <StatCard label="Operational" value={counts.operational} status="operational" />
-        <StatCard label="Degraded" value={counts.degraded} status="degraded" />
-        <StatCard label="Down" value={counts.down} status="down" />
-        <StatCard label="Reported problems" value={reports.length} />
+        <StatCard label="Operational" value={counts.operational} status="operational" to="/services?status=operational" />
+        <StatCard label="Degraded" value={counts.degraded} status="degraded" to="/services?status=degraded" />
+        <StatCard label="Down" value={counts.down} status="down" to="/services?status=down" />
+        <StatCard label="Reported problems" value={reports.length} to="/report" />
       </div>
 
       {counts.error > 0 && (

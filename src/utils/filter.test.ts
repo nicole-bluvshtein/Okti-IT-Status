@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { filterServices, type ServiceFilters } from './filter'
+import { filterServices, filtersFromParams, filtersToParams, type ServiceFilters } from './filter'
 import type { ServiceWithStatus } from '../types'
 
 // A small, fixed list just for the tests, so the results never depend on the internet.
@@ -40,5 +40,26 @@ describe('filterServices', () => {
 
   it('returns an empty list when nothing matches', () => {
     expect(names({ ...noFilters, search: 'salesforce' })).toEqual([])
+  })
+})
+
+describe('filtersFromParams and filtersToParams', () => {
+  it('reads the status from the address', () => {
+    const params = new URLSearchParams('status=operational')
+    expect(filtersFromParams(params)).toEqual({ ...noFilters, status: 'operational' })
+  })
+
+  it('ignores unknown values in the address', () => {
+    const params = new URLSearchParams('status=banana&category=Food')
+    expect(filtersFromParams(params)).toEqual(noFilters)
+  })
+
+  it('writes only the filters that are not on their default', () => {
+    expect(filtersToParams({ search: 'git', category: 'all', status: 'down' }).toString()).toBe('q=git&status=down')
+  })
+
+  it('reads back exactly what it wrote', () => {
+    const filters: ServiceFilters = { search: 'open', category: 'Dev Tools', status: 'degraded' }
+    expect(filtersFromParams(filtersToParams(filters))).toEqual(filters)
   })
 })
