@@ -105,3 +105,30 @@
   color: var(--text);
   font-weight: 600;
 }
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.search-bar,
+.filter-bar select {
+  padding: 8px 12px;
+  font: inherit;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card-bg);
+}
+
+.search-bar {
+  flex: 1;
+  min-width: 200px;
+}
