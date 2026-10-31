@@ -1,10 +1,12 @@
 import ServiceList from '../components/ServiceList'
 import StatCard from '../components/StatCard'
 import { useServiceStatuses } from '../hooks/useServiceStatuses'
+import { useReports } from '../hooks/useReports'
 import { countStatuses, getBannerMessage, getOverallStatus } from '../utils/dashboard'
 
 function DashboardPage() {
   const servicesWithStatus = useServiceStatuses()
+  const { reports } = useReports()
   const counts = countStatuses(servicesWithStatus)
   const overall = getOverallStatus(counts)
 
@@ -23,6 +25,7 @@ function DashboardPage() {
         <StatCard label="Operational" value={counts.operational} status="operational" />
         <StatCard label="Degraded" value={counts.degraded} status="degraded" />
         <StatCard label="Down" value={counts.down} status="down" />
+        <StatCard label="Reported problems" value={reports.length} />
       </div>
 
       {counts.error > 0 && (

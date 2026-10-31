@@ -123,7 +123,8 @@
   background: var(--card-bg);
 }
 
-.filter-bar select {
+.filter-bar select,
+.report-form select {
   appearance: none;
   padding-right: 36px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%235f6b7a' stroke-width='2'/%3E%3C/svg%3E");
@@ -160,7 +161,8 @@
 }
 
 .component-list,
-.incident-list {
+.incident-list,
+.report-list {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -328,4 +330,86 @@
   .stats-numbers {
     grid-column: 1;
   }
+}
+
+.report-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 560px;
+  padding: 20px;
+  margin-bottom: 28px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.report-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.report-form select,
+.report-form textarea {
+  padding: 8px 12px;
+  font: inherit;
+  font-weight: 400;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background-color: var(--card-bg);
+}
+
+.report-form select {
+  padding-right: 36px;
+}
+
+.report-form textarea {
+  resize: vertical;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.report-form button[type='submit'] {
+  align-self: flex-start;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  background: var(--text);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.success-text {
+  color: var(--green);
+}
+
+.report-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.report-row:last-child {
+  border-bottom: none;
+}
+
+.report-description {
+  margin: 4px 0;
+  overflow-wrap: anywhere;
+}
+
+.button-secondary {
+  flex-shrink: 0;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card-bg);
 }

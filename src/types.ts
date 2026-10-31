@@ -70,3 +70,11 @@ export type RequestState<T> =
   | { state: 'loading' }
   | { state: 'error' }
   | { state: 'success'; data: T }
+
+// One problem an employee reported. Saved in the browser's localStorage.
+export type ProblemReport = {
+  id: string
+  serviceId: string // which service, for example "jira"
+  description: string
+  createdAt: string // a date like "2026-10-31T09:15:00.000Z"
+}
