@@ -1,32 +1,61 @@
-# React + TypeScript + Vite
+# Oktopost IT Status Board
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+When someone at Oktopost says "Jira isn't working", this app shows at a glance whether the vendor has an outage or the problem is on our side.
+It brings the live status of the external services we depend on into one place, and lets employees report a problem.
 
-Currently, two official plugins are available:
+Built with React, TypeScript, Vite and React Router. Front-end only: no server and no database.
+Every status comes live from the vendors' public status APIs.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Pages
 
-## React Compiler
+| Page | Address | What it does |
+|---|---|---|
+| Dashboard | `/` | Overall banner, counts of working, degraded and down services, and the number of reported problems. Each count is a link. |
+| Services | `/services` | All 8 services with a live status. Search by name, filter by category and status. Filters are kept in the address, for example `/services?status=down`. |
+| Service details | `/services/:id` | Logo, description, every component's status, open incidents and the 10 most recent incidents. |
+| Statistics | `/stats` | Incidents per company in the last 30 days, the company with the most incidents, and the number of components. |
+| Report a problem | `/report` | A form for reporting a problem with a service. Reports are saved in this browser (`localStorage`). |
+| Not found | any other address | A "page not found" message with a link back to the dashboard. |
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Running the app
 
-## Expanding the Oxlint configuration
+You need Node.js 22.12 or later.
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Then open http://localhost:5173.
+
+To build for production: `npm run build`.
+
+## Tests
+
+56 unit tests with Vitest, covering the app's logic: converting API statuses, search and filters, incidents, statistics, saved reports and the Salesforce adapter.
+
+```bash
+npm test          # runs all the tests once in the terminal
+npm run test:ui   # opens Vitest UI in the browser
+```
+
+## APIs
+
+All free and with no key.
+
+| What | API |
+|---|---|
+| Status, components and incidents for GitHub, Jira, Cloudflare, Twilio, OpenAI, Claude and Clari | Statuspage API: `<status page>/api/v2/summary.json` and `<status page>/api/v2/incidents.json` |
+| Status, products and incidents for Salesforce | Salesforce Trust API: `https://api.status.salesforce.com/v1/products`, `/incidents/active`, `/incidents` |
+| Company descriptions | Wikipedia REST API: `https://en.wikipedia.org/api/rest_v1/page/summary/<title>` |
+| Logos | Google favicon service: `https://www.google.com/s2/favicons?domain=<domain>&sz=128` |
+
+The list of monitored services (name, category, status-page address) lives in `src/data/services.ts`.
+To monitor another service that uses Statuspage, add one line there.
+
+## Project documents
+
+- [PRD.md](PRD.md): what the app does and why, and the acceptance criteria
+- [tasks.md](tasks.md): the build plan, one task at a time
+- [docs/architecture.md](docs/architecture.md): how the code is organized and how data flows through it
+- [PROMPTS.md](PROMPTS.md): every prompt sent to the AI agent while building the app, recorded automatically
