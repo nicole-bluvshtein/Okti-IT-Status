@@ -138,11 +138,16 @@
   align-items: center;
   gap: 6px;
   font-size: 0.9rem;
-  white-space: nowrap;
 }
 
 .service-card .status-badge {
   margin-left: auto;
+  text-align: right;
+}
+
+/* Lets the name area shrink, so the status text gets room instead of overflowing */
+.service-card > div {
+  min-width: 0;
 }
 
 .component-list,
@@ -173,4 +178,33 @@
 .muted {
   color: var(--muted);
   font-size: 0.9rem;
+}
+
+.details-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+  margin: 16px 0 8px;
+}
+
+.details-header h1 {
+  margin: 0;
+}
+
+.details-header .status-badge {
+  margin-left: auto;
+}
+
+.details-section {
+  margin: 24px 0;
+}
+
+.details-section h2 {
+  font-size: 1.1rem;
+  margin: 0 0 10px;
+}
+
+.error-text {
+  color: var(--red);
 }

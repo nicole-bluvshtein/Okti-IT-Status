@@ -63,3 +63,10 @@ export type WikipediaSummary = {
   title: string
   extract: string // the first paragraph of the article
 }
+
+// The 3 states of any request on screen: still loading, failed, or here is the data.
+// <T> is a placeholder for the kind of data, for example WikipediaSummary.
+export type RequestState<T> =
+  | { state: 'loading' }
+  | { state: 'error' }
+  | { state: 'success'; data: T }

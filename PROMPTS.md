@@ -344,3 +344,11 @@
 **13:43 · claude**
 
 > I approve
+
+**13:51 · claude**
+
+> we have a little issue with the sizing, when it says not connected yet the writing goes out of the box , we need to make sure it fits correctly or move to a two sentance way so it won't we over the box. and I approve
+
+**13:53 · claude**
+
+> I approve
