@@ -412,3 +412,39 @@
 **15:13 · claude**
 
 > yes
+
+**15:20 · claude**
+
+> Extract the design system from this codebase and make a new design system. I want it to be innovative, creative, modern, well fitted with the idea of the website and overall functinalty. suggest never decide and always ask never assume.
+
+**15:50 · claude**
+
+> Yes, plan it
+
+**15:53 · claude**
+
+> Yes, start
+
+**15:53 · claude**
+
+> Yes, write it
+
+**15:54 · claude**
+
+> Yes, write it
+
+**15:55 · claude**
+
+> Yes, write it
+
+**15:59 · claude**
+
+> Write, screen only
+
+**16:01 · claude**
+
+> Write, CSS :has()
+
+**16:05 · claude**
+
+> wait we have committed yet anything? if so write down the commit commands and I will commit and then we will continue

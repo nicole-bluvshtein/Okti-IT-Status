@@ -46,3 +46,7 @@ An adapter that converts Salesforce's format into ours, with a test.
 ## 11. Finishing
 Styling for narrow screens, `README.md` and `docs/architecture.md`.
 **Done when:** the app looks good at 375px wide, `npm run build` and `npm test` pass, and the README explains how to run the app and the tests and which APIs it uses.
+
+## 12. Okti design system
+Apply the Okti design system (Mission Control: dark-first, monochrome, status shown by shape and color) to the whole app. Tokens for dark and light in `index.css`, a theme toggle that follows the OS and remembers your choice, the Geist and Geist Mono fonts, a shape for each status (● ◆ ✕ ○), restyled components, the name "Okti", and a LIVE clock showing when statuses last refreshed.
+**Done when:** the app follows the OS theme and the toggle switches it (still switched after a refresh), every status shows a shape and a word, the banner text passes 4.5:1 contrast in both themes, the dashboard shows "● LIVE" with the last refresh time, it looks good at 375px wide, and `npm test`, `npm run lint` and `npm run build` pass.
