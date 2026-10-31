@@ -4,10 +4,10 @@ import type { ServiceWithStatus } from '../types'
 
 // A small, fixed list just for the tests, so the results never depend on the internet.
 const sampleServices: ServiceWithStatus[] = [
-  { id: 'github', name: 'GitHub', category: 'Dev Tools', statusPageUrl: '', apiType: 'statuspage', status: 'operational' },
-  { id: 'jira', name: 'Jira', category: 'Dev Tools', statusPageUrl: '', apiType: 'statuspage', status: 'degraded' },
-  { id: 'openai', name: 'OpenAI', category: 'AI', statusPageUrl: '', apiType: 'statuspage', status: 'down' },
-  { id: 'claude', name: 'Claude', category: 'AI', statusPageUrl: '', apiType: 'statuspage', status: 'operational' },
+  { id: 'github', name: 'GitHub', category: 'Dev Tools', statusPageUrl: '', apiType: 'statuspage', domain: '', wikipediaTitle: '', status: 'operational' },
+  { id: 'jira', name: 'Jira', category: 'Dev Tools', statusPageUrl: '', apiType: 'statuspage', domain: '', wikipediaTitle: '', status: 'degraded' },
+  { id: 'openai', name: 'OpenAI', category: 'AI', statusPageUrl: '', apiType: 'statuspage', domain: '', wikipediaTitle: '', status: 'down' },
+  { id: 'claude', name: 'Claude', category: 'AI', statusPageUrl: '', apiType: 'statuspage', domain: '', wikipediaTitle: '', status: 'operational' },
 ]
 
 const noFilters: ServiceFilters = { search: '', category: 'all', status: 'all' }

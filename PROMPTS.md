@@ -320,3 +320,23 @@
 **13:11 · claude**
 
 > yes
+
+**13:14 · claude**
+
+> done
+
+**13:21 · claude**
+
+> well for clari you can just take the data relevant from their website as salesloft clari copilot. for twilio and claude and openai take the pictures from their website logo as well.
+
+**13:24 · claude**
+
+> yes for clari, regarding to logo's to make sure you dont pick the wrong one use the browser automation to choose the right logo and download, however dont we have an option to get it through api or something like that?
+
+**13:26 · claude**
+
+> I approve option A and we can continue
+
+**13:36 · claude**
+
+> I approve

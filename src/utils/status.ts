@@ -16,3 +16,19 @@ export function toServiceStatus(indicator: string): ServiceStatus {
       return 'degraded'
   }
 }
+
+// Converts one component's status into our own 3 statuses.
+export function toComponentStatus(status: string): ServiceStatus {
+  switch (status) {
+    case 'operational':
+      return 'operational'
+    case 'degraded_performance':
+    case 'under_maintenance':
+      return 'degraded'
+    case 'partial_outage':
+    case 'major_outage':
+      return 'down'
+    default:
+      return 'degraded'
+  }
+}
