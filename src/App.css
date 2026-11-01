@@ -1,40 +1,190 @@
+/* Links take the orchid accent */
+a {
+  color: var(--accent);
+}
+
+/* One visible focus ring for everything you can tab to */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
 .app {
-  max-width: 960px;
+  max-width: 1040px;
   margin: 0 auto;
-  padding: 24px 16px;
+  padding: 32px 16px 48px;
 }
 
-.service-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 16px;
-}
-
-.service-card {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px;
+/* Glass: every floating panel shares the same frosted look.
+   A see-through fill, a blur of the glows behind it, a bright rim on top and a soft shadow. */
+.navbar,
+.service-card,
+.stat-card,
+.banner,
+.highlight-card,
+.component-list,
+.incident-list,
+.report-list,
+.stats-row,
+.report-form {
   background: var(--surface-1);
   border: 1px solid var(--line);
-  border-radius: 10px;
-  color: inherit;
-  text-decoration: none;
+  box-shadow: inset 0 1px 0 var(--glass-rim), var(--shadow-1);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
 }
 
-.service-name {
-  margin: 0;
-  font-size: 1.1rem;
+/* Cards you can click float up a little on hover */
+.service-card,
+.stat-card {
+  transition:
+    transform 180ms var(--ease),
+    box-shadow 180ms var(--ease);
 }
 
-.service-category {
-  margin: 2px 0 0;
+.service-card:hover,
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: inset 0 1px 0 var(--glass-rim), var(--shadow-2);
+}
+
+/* ---------- Nav: a floating glass bar that stays on top while you scroll ---------- */
+
+.navbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 24px;
+  max-width: 1040px;
+  margin: 12px auto 0;
+  padding: 10px 12px 10px 20px;
+  border-radius: var(--radius-lg);
+}
+
+/* Stays on top while you scroll, but not on phones, where it wraps to three rows */
+@media (min-width: 640px) {
+  .navbar {
+    position: sticky;
+    top: 12px;
+    z-index: 10;
+  }
+}
+
+@media (min-width: 1072px) {
+  .navbar {
+    border-radius: var(--radius-full);
+  }
+}
+
+@media (max-width: 1071px) {
+  .navbar {
+    margin: 12px 16px 0;
+  }
+}
+
+/* The name in the orchid-to-lilac gradient, with a small glowing pearl in front */
+.navbar-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  background: linear-gradient(120deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.navbar-title::before {
+  content: '';
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-full);
+  background: radial-gradient(circle at 30% 30%, #fff, var(--accent) 55%, var(--accent-2));
+  box-shadow: 0 0 12px var(--accent);
+}
+
+.navbar-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.navbar-links a {
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
   color: var(--ink-muted);
-  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition:
+    background-color 150ms var(--ease),
+    color 150ms var(--ease);
 }
+
+.navbar-links a:hover {
+  color: var(--ink);
+  background: var(--accent-soft);
+}
+
+/* NavLink adds the "active" class to the link of the current page */
+.navbar-links a.active {
+  color: var(--accent);
+  font-weight: 600;
+  background: var(--accent-soft);
+}
+
+/* ---------- Buttons ---------- */
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+/* Ghost pill: theme toggle, Remove */
+.theme-toggle,
+.button-secondary {
+  flex-shrink: 0;
+  padding: 6px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--ink);
+  transition: background-color 150ms var(--ease);
+}
+
+.theme-toggle:hover,
+.button-secondary:hover {
+  background: var(--accent-soft);
+}
+
+/* Main button: a glowing orchid-to-lilac pill */
+.report-form button[type='submit'] {
+  align-self: flex-start;
+  min-height: 44px;
+  padding: 10px 24px;
+  border: none;
+  border-radius: var(--radius-full);
+  background: linear-gradient(120deg, var(--accent), var(--accent-2));
+  color: var(--on-accent);
+  font-weight: 600;
+  box-shadow: 0 6px 20px -6px var(--accent);
+  transition:
+    transform 180ms var(--ease),
+    box-shadow 180ms var(--ease);
+}
+
+.report-form button[type='submit']:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 28px -6px var(--accent);
+}
+
+/* ---------- Status shapes ---------- */
 
 .status-dot {
   position: relative;
@@ -43,19 +193,25 @@
   flex-shrink: 0;
 }
 
-/* ● circle */
+/* ● circle, with a soft halo */
 .status-operational {
   background: var(--signal-ok);
   border-radius: var(--radius-full);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--signal-ok) 22%, transparent);
 }
 
 /* ◆ diamond: a square turned 45°, shrunk a little so it looks the same size as the circle */
 .status-degraded {
   background: var(--signal-warn);
   transform: rotate(45deg) scale(0.86);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--signal-warn) 22%, transparent);
 }
 
-/* ✕ cross: two bars drawn with ::before and ::after */
+/* ✕ cross: two bars drawn with ::before and ::after, glowing softly */
+.status-down {
+  filter: drop-shadow(0 0 3px color-mix(in srgb, var(--signal-down) 60%, transparent));
+}
+
 .status-down::before,
 .status-down::after {
   content: '';
@@ -90,89 +246,203 @@
 .status-badge:has(.status-loading),
 .status-badge:has(.status-error) { color: var(--signal-unknown); }
 
-.service-card:hover {
-  border-color: var(--ink-muted);
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.navbar {
+/* Small sans labels: categories, stat captions, status words */
+.service-category,
+.stat-label,
+.status-badge {
+  font-size: 0.8125rem; /* 13px */
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+/* ---------- Banner: the big answer at the top of the dashboard ---------- */
+
+.banner {
+  --orb: var(--signal-unknown);
+  --banner-glow: transparent;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 8px 24px;
-  padding: 12px 16px;
-  background: var(--surface-1);
-  border-bottom: 1px solid var(--line);
+  gap: var(--space-3) var(--space-6);
+  padding: var(--space-8);
+  margin-bottom: var(--space-6);
+  border-radius: var(--radius-lg);
+  /* A color pool in the corner tells the state before you read anything */
+  background:
+    radial-gradient(120% 160% at 0% 0%, var(--banner-glow), transparent 60%),
+    var(--surface-1);
+  font-size: 2rem;
+  line-height: 1.15;
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  color: var(--ink);
 }
 
-.navbar-title {
-  font-weight: 700;
+.banner-operational { --orb: var(--signal-ok); --banner-glow: var(--signal-ok-tint); }
+.banner-degraded { --orb: var(--signal-warn); --banner-glow: var(--signal-warn-tint); }
+.banner-down { --orb: var(--signal-down); --banner-glow: var(--signal-down-tint); }
+.banner-error { color: var(--signal-down); }
+
+.banner-message {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
 }
 
-.navbar-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 16px;
+/* The orb: a glowing pearl in the status color, breathing slowly */
+.banner-message::before {
+  content: '';
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  background: radial-gradient(circle at 30% 30%, #fff 0%, var(--orb) 45%);
+  box-shadow:
+    0 0 0 6px color-mix(in srgb, var(--orb) 18%, transparent),
+    0 0 24px var(--orb);
+  animation: orb-breathe 2.8s ease-in-out infinite;
 }
 
-.navbar-links a {
+.banner-loading .banner-message::before {
+  animation: none;
+  opacity: 0.6;
+}
+
+@keyframes orb-breathe {
+  50% {
+    box-shadow:
+      0 0 0 10px color-mix(in srgb, var(--orb) 8%, transparent),
+      0 0 32px var(--orb);
+  }
+}
+
+.banner-time {
+  padding: 4px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-full);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem; /* 13px */
+  font-weight: 500;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
   color: var(--ink-muted);
+}
+
+@media (max-width: 500px) {
+  .banner {
+    padding: var(--space-6);
+    font-size: 1.5rem;
+  }
+}
+
+/* ---------- Stat cards ---------- */
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 × 2 on phones */
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+@media (min-width: 640px) {
+  .stat-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Each card has its status color as a glow in the corner and a thin line on top */
+.stat-card {
+  --stat-color: var(--accent);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-6) var(--space-6) var(--space-4);
+  border-radius: var(--radius-md);
+  background:
+    radial-gradient(90% 90% at 100% 0%, color-mix(in srgb, var(--stat-color) 14%, transparent), transparent 70%),
+    var(--surface-1);
+  box-shadow: inset 0 2px 0 var(--stat-color), var(--shadow-1);
+  color: inherit;
   text-decoration: none;
 }
 
-/* NavLink adds the "active" class to the link of the current page */
-.navbar-links a.active {
-  color: var(--ink);
-  font-weight: 600;
+.stat-card:hover {
+  box-shadow: inset 0 2px 0 var(--stat-color), var(--shadow-2);
 }
 
-.filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 20px;
-}
+.stat-operational { --stat-color: var(--signal-ok); }
+.stat-degraded { --stat-color: var(--signal-warn); }
+.stat-down { --stat-color: var(--signal-down); }
 
-.filter-bar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.search-bar,
-.filter-bar select {
-  padding: 8px 12px;
-  font: inherit;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--surface-1);
-}
-
-.filter-bar select,
-.report-form select {
-  appearance: none;
-  padding-right: 36px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%235f6b7a' stroke-width='2'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  cursor: pointer;
-}
-
-.search-bar {
-  flex: 1;
-  min-width: 200px;
-}
-
-.service-logo {
-  border-radius: 8px;
-  flex-shrink: 0;
-}
-
-.status-badge {
+.stat-label {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 0.9rem;
+  gap: var(--space-2);
+  color: var(--ink-muted);
+}
+
+.stat-value {
+  font-size: 2.75rem; /* 44px */
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+
+/* Numbers line up and don't jump when data refreshes */
+.stat-value,
+.stats-numbers {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Service cards ---------- */
+
+.service-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.service-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px;
+  border-radius: var(--radius-md);
+  color: inherit;
+  text-decoration: none;
+}
+
+.service-name {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.service-category {
+  margin: 2px 0 0;
+  color: var(--ink-muted);
+  font-weight: 500;
+}
+
+/* A soft white tile keeps every favicon readable in both themes */
+.service-logo {
+  padding: 6px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(80, 20, 60, 0.12);
+  flex-shrink: 0;
 }
 
 .service-card .status-badge {
@@ -185,15 +455,70 @@
   min-width: 0;
 }
 
+/* ---------- Filters and inputs ---------- */
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.search-bar,
+.filter-bar select,
+.report-form select,
+.report-form textarea {
+  padding: 10px 14px;
+  font: inherit;
+  font-weight: 400;
+  color: var(--ink);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background-color: var(--surface-2);
+  transition:
+    border-color 150ms var(--ease),
+    box-shadow 150ms var(--ease);
+}
+
+.search-bar:focus,
+.filter-bar select:focus,
+.report-form select:focus,
+.report-form textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+.filter-bar select,
+.report-form select {
+  appearance: none;
+  padding-right: 40px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%238a6d7d' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  cursor: pointer;
+}
+
+.search-bar {
+  flex: 1;
+  min-width: 200px;
+}
+
+/* ---------- Lists: components, incidents, reports ---------- */
+
 .component-list,
 .incident-list,
 .report-list {
   list-style: none;
   padding: 0;
   margin: 0;
-  background: var(--surface-1);
-  border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
 }
 
 .component-row,
@@ -202,7 +527,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 4px 12px;
-  padding: 10px 16px;
+  padding: 12px 18px;
   border-bottom: 1px solid var(--line);
 }
 
@@ -233,85 +558,32 @@
 }
 
 .details-section {
-  margin: 24px 0;
+  margin: 28px 0;
 }
 
 .details-section h2 {
   font-size: 1.1rem;
-  margin: 0 0 10px;
+  margin: 0 0 12px;
 }
 
 .error-text {
   color: var(--signal-down);
 }
 
-.banner {
-  padding: 16px 20px;
-  margin-bottom: 20px;
-  border-radius: 10px;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #ffffff;
+.success-text {
+  color: var(--signal-ok);
 }
 
-.banner-operational { background: var(--signal-ok); }
-.banner-degraded { background: var(--signal-warn); color: var(--ink); }
-.banner-down { background: var(--signal-down); }
-.banner-loading { background: var(--line); color: var(--ink); }
-.banner-error { background: var(--surface-1); color: var(--signal-down); border: 2px solid var(--signal-down); }
-
-.stat-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 16px;
-  margin-bottom: 24px;
-}
-
-.stat-card {
-  display: flex;
-  flex-direction: column;
-  padding: 16px;
-  background: var(--surface-1);
-  border: 1px solid var(--line);
-  border-top: 4px solid var(--line);
-  border-radius: 10px;
-  color: inherit;
-  text-decoration: none;
-}
-
-.stat-card:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-}
-
-.stat-operational { border-top-color: var(--signal-ok); }
-.stat-degraded { border-top-color: var(--signal-warn); }
-.stat-down { border-top-color: var(--signal-down); }
-
-.stat-value {
-  font-size: 2.5rem; /* 40px */
-  line-height: 1.1;
-  font-weight: 500;
-  letter-spacing: -0.03em;
-}
-
-/* Numbers line up and don't jump when data refreshes */
-.stat-value,
-.stats-numbers {
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-}
-
-.stat-label {
-  color: var(--ink-muted);
-}
+/* ---------- Statistics ---------- */
 
 .highlight-card {
-  padding: 16px 20px;
+  padding: 20px 24px;
   margin: 16px 0;
-  background: var(--surface-1);
-  border: 1px solid var(--line);
-  border-left: 4px solid var(--signal-down);
-  border-radius: 10px;
+  border-radius: var(--radius-md);
+  background:
+    radial-gradient(80% 120% at 0% 0%, var(--signal-down-tint), transparent 70%),
+    var(--surface-1);
+  box-shadow: inset 0 2px 0 var(--signal-down), var(--shadow-1);
 }
 
 .stats-list {
@@ -328,10 +600,8 @@
   grid-template-columns: 140px 1fr;
   align-items: center;
   gap: 6px 16px;
-  padding: 12px 16px;
-  background: var(--surface-1);
-  border: 1px solid var(--line);
-  border-radius: 10px;
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
 }
 
 .stats-name {
@@ -345,15 +615,17 @@
 
 .stats-bar-track {
   height: 10px;
-  background: var(--surface-0);
-  border-radius: 5px;
+  background: var(--surface-2);
+  border-radius: var(--radius-full);
   overflow: hidden;
 }
 
+/* The bar glows in the down color */
 .stats-bar {
   height: 100%;
-  background: var(--signal-down);
-  border-radius: 5px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--signal-down) 55%, var(--accent)), var(--signal-down));
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--signal-down) 50%, transparent);
 }
 
 .stats-numbers {
@@ -372,16 +644,16 @@
   }
 }
 
+/* ---------- Report a problem ---------- */
+
 .report-form {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
   max-width: 560px;
-  padding: 20px;
-  margin-bottom: 28px;
-  background: var(--surface-1);
-  border: 1px solid var(--line);
-  border-radius: 10px;
+  padding: 24px;
+  margin-bottom: 32px;
+  border-radius: var(--radius-lg);
 }
 
 .report-form label {
@@ -391,41 +663,8 @@
   font-weight: 600;
 }
 
-.report-form select,
-.report-form textarea {
-  padding: 8px 12px;
-  font: inherit;
-  font-weight: 400;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background-color: var(--surface-1);
-}
-
-.report-form select {
-  padding-right: 36px;
-}
-
 .report-form textarea {
   resize: vertical;
-}
-
-button {
-  font: inherit;
-  cursor: pointer;
-}
-
-.report-form button[type='submit'] {
-  align-self: flex-start;
-  padding: 10px 18px;
-  border: none;
-  border-radius: 8px;
-  background: var(--ink);
-  color: #ffffff;
-  font-weight: 600;
-}
-
-.success-text {
-  color: var(--signal-ok);
 }
 
 .report-row {
@@ -433,7 +672,7 @@ button {
   justify-content: space-between;
   align-items: flex-start;
   gap: 12px;
-  padding: 12px 16px;
+  padding: 14px 18px;
   border-bottom: 1px solid var(--line);
 }
 
@@ -446,33 +685,11 @@ button {
   overflow-wrap: anywhere;
 }
 
-.button-secondary {
-  flex-shrink: 0;
-  padding: 6px 12px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--surface-1);
-}
-
-.theme-toggle {
-  padding: var(--space-1) var(--space-3);
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius-sm);
-  background: transparent;
-  color: var(--ink);
-}
-
-.theme-toggle:hover {
-  background: var(--surface-2);
-}
-
-/* Small uppercase mono labels: categories, stat captions, status words */
-.service-category,
-.stat-label,
-.status-badge {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem; /* 11px */
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+/* No floating for people who ask for less motion */
+@media (prefers-reduced-motion: reduce) {
+  .service-card:hover,
+  .stat-card:hover,
+  .report-form button[type='submit']:hover {
+    transform: none;
+  }
 }

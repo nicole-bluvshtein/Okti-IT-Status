@@ -2,10 +2,10 @@ import ServiceList from '../components/ServiceList'
 import StatCard from '../components/StatCard'
 import { useServiceStatuses } from '../hooks/useServiceStatuses'
 import { useReports } from '../hooks/useReports'
-import { countStatuses, getBannerMessage, getOverallStatus } from '../utils/dashboard'
+import { countStatuses, formatCheckedAt, getBannerMessage, getOverallStatus } from '../utils/dashboard'
 
 function DashboardPage() {
-  const servicesWithStatus = useServiceStatuses()
+  const { services: servicesWithStatus, checkedAt } = useServiceStatuses()
   const { reports } = useReports()
   const counts = countStatuses(servicesWithStatus)
   const overall = getOverallStatus(counts)
@@ -19,7 +19,14 @@ function DashboardPage() {
     <>
       <h1>Dashboard</h1>
 
-      <div className={`banner banner-${overall}`}>{getBannerMessage(counts)}</div>
+      <div className={`banner banner-${overall}`}>
+        <span className="banner-message">{getBannerMessage(counts)}</span>
+        {checkedAt && (
+          <time className="banner-time" dateTime={checkedAt.toISOString()}>
+            Checked {formatCheckedAt(checkedAt)}
+          </time>
+        )}
+      </div>
 
       <div className="stat-grid">
         <StatCard label="Operational" value={counts.operational} status="operational" to="/services?status=operational" />

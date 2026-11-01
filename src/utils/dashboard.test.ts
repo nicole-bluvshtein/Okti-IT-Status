@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { countStatuses, getBannerMessage, getOverallStatus, type StatusCounts } from './dashboard'
+import { countStatuses, formatCheckedAt, getBannerMessage, getOverallStatus, type StatusCounts } from './dashboard'
 import type { ServiceWithStatus, StatusResult } from '../types'
 
 // Helper: builds a test service with only the status that matters.
@@ -41,5 +41,15 @@ describe('getBannerMessage', () => {
 
   it('adds degraded and down services together', () => {
     expect(getBannerMessage({ ...zero, operational: 4, degraded: 2, down: 1 })).toBe('3 services have issues')
+  })
+})
+
+describe('formatCheckedAt', () => {
+  it('shows hours and minutes in 24-hour time', () => {
+    expect(formatCheckedAt(new Date(2026, 10, 1, 14, 2))).toBe('14:02')
+  })
+
+  it('adds a leading zero to morning hours', () => {
+    expect(formatCheckedAt(new Date(2026, 10, 1, 9, 5))).toBe('09:05')
   })
 })

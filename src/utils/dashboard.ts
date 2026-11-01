@@ -39,3 +39,8 @@ export function getBannerMessage(counts: StatusCounts): string {
   const problems = counts.degraded + counts.down
   return problems === 1 ? '1 service has issues' : `${problems} services have issues`
 }
+
+// The time of the last check, like "14:02" (24-hour, as used in Israel and the UK).
+export function formatCheckedAt(date: Date): string {
+  return date.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })
+}

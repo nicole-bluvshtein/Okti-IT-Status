@@ -6,7 +6,7 @@ import { useServiceStatuses } from '../hooks/useServiceStatuses'
 import { filterServices, filtersFromParams, filtersToParams, type ServiceFilters } from '../utils/filter'
 
 function ServicesPage() {
-  const servicesWithStatus = useServiceStatuses()
+  const { services: servicesWithStatus } = useServiceStatuses()
 
   // The filters live in the address (for example ?status=operational), so links can open a filtered list.
   const [searchParams, setSearchParams] = useSearchParams()

@@ -8,12 +8,15 @@ type StatCardProps = {
   status?: ServiceStatus
 }
 
-// One big number with a label, like "3 Operational". Clicking it opens the matching page.
+// A label with its status shape, then one big number, like "◆ Degraded 1". Clicking it opens the matching page.
 function StatCard({ label, value, to, status }: StatCardProps) {
   return (
     <Link to={to} className={status ? `stat-card stat-${status}` : 'stat-card'}>
+      <span className="stat-label">
+        {status && <span className={`status-dot status-${status}`} aria-hidden="true" />}
+        {label}
+      </span>
       <span className="stat-value">{value}</span>
-      <span className="stat-label">{label}</span>
     </Link>
   )
 }
