@@ -8,6 +8,7 @@ function SearchBar({ value, onChange }: SearchBarProps) {
     <input
       type="search"
       className="search-bar"
+      aria-label="Search services"
       placeholder="Search services…"
       value={value}
       onChange={(event) => onChange(event.target.value)}

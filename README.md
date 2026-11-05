@@ -32,7 +32,7 @@ To build for production: `npm run build`.
 
 ## Tests
 
-56 unit tests with Vitest, covering the app's logic: converting API statuses, search and filters, incidents, statistics, saved reports and the Salesforce adapter.
+58 unit tests with Vitest, covering the app's logic: converting API statuses, search and filters, incidents, statistics, saved reports and the Salesforce adapter.
 
 ```bash
 npm test          # runs all the tests once in the terminal

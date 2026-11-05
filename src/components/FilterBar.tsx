@@ -12,6 +12,7 @@ function FilterBar({ category, status, onCategoryChange, onStatusChange }: Filte
   return (
     <div className="filter-bar">
       <select
+        aria-label="Filter by category"
         value={category}
         onChange={(event) =>
           onCategoryChange(categoryOptions.find((option) => option === event.target.value) ?? 'all')
@@ -26,6 +27,7 @@ function FilterBar({ category, status, onCategoryChange, onStatusChange }: Filte
       </select>
 
       <select
+        aria-label="Filter by status"
         value={status}
         onChange={(event) =>
           onStatusChange(statusOptions.find((option) => option === event.target.value) ?? 'all')
